@@ -1,0 +1,923 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Practical 5: Unconstrained Ordination},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Practical 5: Unconstrained Ordination}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{BIO2020 Statistics and experimental design}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Until now, all the `response' data you have looked at consists of a
+single column of data. Examples you have looked at include `growth',
+`presence or absence of bacterial colonies' etc. You can easily
+summarise data that consists of a single column of numbers using a mean,
+median, standard deviation. But what if your response variable consists
+of lots of columns of data? For example:
+
+\begin{itemize}
+\tightlist
+\item
+  instead of a single column telling you the total number of specis
+  found at 20 sites, you have a table of 20 rows, with 17 columns. Each
+  cell entry in the table shows the abundance of a particular species
+  (column) at that site (row)
+\item
+  instead of single column giving an indication of the number of
+  bacteria colonies you have multiple columns, from qPCR sequencing,
+  giving information about the genetic information (each column) for
+  each bacterial colony (each row)
+\end{itemize}
+
+Such tables of data are harder to understand using means and standard
+devations. Whilst you can still calculate these, you end up with lots of
+information to digest. For example, you can still calculate the average
+abundance of each of your 17 species at all your 20 sites. But this does
+not allow you to answer key questions, e.g.
+
+\begin{itemize}
+\tightlist
+\item
+  which sites are most similar in their species composition?
+\item
+  which species regularly co-occur with each other?
+\item
+  which bacterial strains have the most similar genomes based on the
+  qPCR results?
+\end{itemize}
+
+Analyses of tables of data with multiple columns, rather than a single
+column, are sometimes called ``multivariate analyses'', to distinguish
+them from the ``univariate analyses'' you covered in Practicals 1 to 4.
+These tables can be formally analysed with the aid of explanatory data,
+which we will cover in Practical 6. In this practical we will focus on
+methods to simplify the data, so that they can be easily visualised, and
+relationships between rows and columns of your input data better
+understood. These methods are known as \textbf{unconstrained
+ordination}. Here we say ``unconstrained'' because we do not directly
+incorporate explanatory variables into the analysis, although after the
+initial analysis has been done, we can use them to aid interpretation.
+We say ``ordination'' because we can create metrics to order the rows
+and columns of your input data on the basis of their similarity.
+
+\hypertarget{types-of-ordination}{%
+\subsection{Types of ordination}\label{types-of-ordination}}
+
+Ordination is a way of arranging rows in your table (e.g.~sites or
+samples) along gradients in such a way that we can try and explain
+patterns of variation within the noise. Hopefully we can explain these
+gradients on the basis of some explanatory data \textbf{after} we have
+done the ordination (hence \textbf{unconstrained} ordination). Linear
+methods (\textbf{PCA}) assume the observations respond roughly linearly
+along these gradients. Unimodal methods (\textbf{CA}) assume the
+observations will respond non-linearly. Distance-based models
+(\textbf{NMDS}) use the relative rankings of your sites along each axis.
+
+Unconstrained ordination is a useful tool for determining whether there
+is a relationship between multiple \textbf{response variables}. Through
+measuring the similarity in their \textbf{composition}, it is easier to
+compare samples. When the composition of samples is summarised on a
+continuous scale it is referred to as an \textbf{ordination}, whereas on
+a categorical scale it is known as \textbf{classification} or
+\textbf{clustering}.
+
+The main aims of this practical are to learn more on the use,
+interpretation and graphical visualisation of unconstrained ordination.
+Specific objectives are to learn how to use:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Principal components analysis (PCA), a ``linear'' method
+\item
+  Correspondence analysis (CA), a ``unimodal'' method
+\item
+  Non-metric multidimensional scaling (NMDS), a ``rank-based'' method
+\end{enumerate}
+
+You are strongly recommended to study
+\href{https://naturalandenvironmentalscience.shinyapps.io/Unconstrained/}{this
+interactive website} before beginning the practical. We will use the
+same data as on the website, but we have swapped them round in the
+analyses, to keep you thinking!
+
+\hypertarget{setting-up-for-the-practical}{%
+\subsection{Setting up for the
+practical}\label{setting-up-for-the-practical}}
+
+First, go to Canvas and download the \textbf{dune.csv} data set and save
+it to your \texttt{Data} folder within your BIO2020 project folder. Now
+navigate to your BIO2020 folder and open up your existing project for
+this course in RStudio, as you have done in previous practicals. On the
+main RStudio menu, click on \textbf{File -\textgreater{} New File
+-\textgreater{} R script} and save it to your current working directory
+(the location of your Bio2020 project) as \textbf{Practical\_5.R}
+
+\hypertarget{installing-and-loading-packages}{%
+\subsection{Installing and Loading
+Packages}\label{installing-and-loading-packages}}
+
+Practicals 5 and 6 make use of both the \texttt{vegan} and
+\texttt{bio2020} R packages. Hopefully you have already installed these.
+The \texttt{vegan} package was originally written for vegetation
+analysis, but is now used in microbiology, phylogenetics, animal ecology
+etc. There is plenty of online material about the package, but if using
+Google to search for it, please search for `R vegan multivariate' rather
+than just `vegan' otherwise Google will return food recipes!
+
+If you have not already done so, please install the \texttt{bio2020}
+package; this provides easier access to analytical functions, and better
+graphics, than the standard \texttt{vegan} functions. Remember that you
+have to set your R session to look in the correct folder
+(e.g.~Downloads) to install the packages. There is extensive information
+on how to install the package, including troubleshooting for Safari on
+MacBooks, at Canvas
+\href{https://ncl.instructure.com/courses/23926/pages/3-install-additional-r-packages}{on
+this page} . The \texttt{bio2020} package automatically activates the
+\texttt{vegan} package.
+
+Load the \textbf{bio2020} package as you have done in previous sessions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(bio2020)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{example-datasets-for-analysis}{%
+\subsection{Example datasets for
+analysis}\label{example-datasets-for-analysis}}
+
+Import the \texttt{dune.csv} file you downloaded at the very beginning
+of the practical into R using the \texttt{read.csv()} function. This
+practical assumes you have save your file in the \texttt{Data}
+subfolder:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dune }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Data/dune.csv"}\NormalTok{, }\AttributeTok{row.names=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Vegan has some in-built data files, let's load ``varespec'' and
+``varechem''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(varespec)}
+\FunctionTok{data}\NormalTok{(varechem)}
+\end{Highlighting}
+\end{Shaded}
+
+These datasets are plant ecological ones, that are often used in online
+tutorials about the \texttt{vegan} package. Here each column is a
+species, and each row a sample. Your dataset would have the identical
+structure if dealing with e.g.~genomic data, each column might indicate
+a sequence mutation insert or deletion, and each row a sample. For an
+example of how the \texttt{vegan} package has been extended to handle
+complex genetic data, including \textbf{operational taxonomic units}
+(OTUs), output from \textbf{mothur} and \textbf{QIIME} look at the
+excellent \href{https://joey711.github.io/phyloseq/}{phyloseq} R
+package.
+
+\hypertarget{summary-statistics}{%
+\subsection{Summary Statistics}\label{summary-statistics}}
+
+It is always good to start by observing the data and running some
+summary statistics.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(varespec)}
+
+\FunctionTok{summary}\NormalTok{(dune)}
+\end{Highlighting}
+\end{Shaded}
+
+However, you will notice that this output is rather large, hence why it
+is not included here. With big datasets it can be easier to observe the
+data by simply using \textbf{head()} to get a snapshot of the data, and
+then \textbf{nrow()}, \textbf{ncol()}, \textbf{rownames()}, and
+\textbf{colnames()} to explore the data a bit more.
+
+You can also use the \texttt{View()} function (capital `V') within
+RStudio to show it as a grid.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Show first few lines and check dimensions}
+\FunctionTok{head}\NormalTok{(varespec)}
+\FunctionTok{nrow}\NormalTok{(varespec)}
+\FunctionTok{ncol}\NormalTok{(varespec)}
+
+\CommentTok{\# Column names are abbreviated Latin names}
+\FunctionTok{rownames}\NormalTok{(varespec)}
+\FunctionTok{colnames}\NormalTok{(varespec)}
+
+\CommentTok{\# Similarly for dune dataset}
+\FunctionTok{head}\NormalTok{(dune)}
+\FunctionTok{nrow}\NormalTok{(dune)}
+\FunctionTok{ncol}\NormalTok{(dune)}
+\FunctionTok{rownames}\NormalTok{(dune)}
+\FunctionTok{colnames}\NormalTok{(dune)}
+
+\CommentTok{\# Display in spreadsheet{-}like tab}
+\FunctionTok{View}\NormalTok{(dune) }\CommentTok{\# not view(dune)}
+\FunctionTok{View}\NormalTok{(varespec)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{principal-components-analysis}{%
+\section{1. Principal Components
+Analysis}\label{principal-components-analysis}}
+
+\hypertarget{pca-analysis-and-summary-of-results}{%
+\subsection{1.1 PCA analysis and summary of
+results}\label{pca-analysis-and-summary-of-results}}
+
+For the purpose of clarity the wrapper function \textbf{ordi\_pca()} in
+the package \textbf{bio2020} will be used in this practical. A typical
+PCA in R has this format: \textbf{ordi\_pca(data)}
+
+In the
+\href{https://naturalandenvironmentalscience.shinyapps.io/Unconstrained/}{online
+tutorial} you saw how the arch or horseshoe effect can be a problem with
+ecological or gene sequencing data. Although \textbf{unimodal methods}
+are a good alternative, you can implement transformations using the
+\textbf{decostand()} function. Here, we use \textbf{scale = TRUE} to
+give the data \textbf{unit variance}, and the \textbf{hellinger}
+transformation, which works well with environmental and species data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{varespec\_pca }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_pca}\NormalTok{(}\FunctionTok{decostand}\NormalTok{(varespec, }\AttributeTok{method =} \StringTok{"hellinger"}\NormalTok{), }\AttributeTok{scale =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{varespec\_pca}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: rda(X = spp_data, scale = TRUE)
+## 
+##               Inertia Rank
+## Total              44     
+## Unconstrained      44   23
+## Inertia is correlations 
+## 
+## Eigenvalues for unconstrained axes:
+##   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8 
+## 8.603 5.134 4.576 3.714 3.245 2.779 2.626 2.221 
+## (Showing 8 of 23 unconstrained eigenvalues)
+\end{verbatim}
+
+Output explained:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Call} - This is a reminder of how you fitted the PCA.
+\item
+  \textbf{Inertia} - Total inertia is a measure of total variance.
+\item
+  \textbf{Unconstrained} - How many correlations have been explained by
+  the ordination axes. In this case, there is one less than the number
+  of variables.
+\item
+  \textbf{Eigenvalues} - Measure of the amount of variance that is
+  explained by each of the axes
+\item
+  \textbf{PC1} - The first axes, and will explain the largest amount of
+  variation of all the axes.
+\end{itemize}
+
+To see all 23 axes, use \textbf{summary()}. This is a large output so it
+is not included here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(varespec\_pca)}
+\end{Highlighting}
+\end{Shaded}
+
+This produces a lot of output, but don't worry, it is less fearsome than
+it looks!
+
+Output explained:
+
+\begin{itemize}
+\tightlist
+\item
+  The top 6 lines are the same as the PCA output
+\item
+  \textbf{Eigenvalues} are the amount of inertia (variance) explained by
+  each axis. If added up for all 23 axes, it will be the same as the
+  total inertia.
+\item
+  \textbf{Proportion explained} is the amount of total variance
+  explained, and if added up for all 23 axes will equal 1.00. You can
+  see that the proportion explained is highest for PC1, next highest for
+  PC2 and so on. The last PC, PC23, explains virtually nothing.
+\item
+  \textbf{Cumulative proportion} is the cumulative total of the
+  proportion of each axes. While \textbf{PC1} explains 0.5384 and
+  \textbf{PC2} explains 0.2543 of the variance, their \emph{cumulative}
+  proportion is 0.7927 because it is the total amount of variance they
+  explain together.
+\item
+  \textbf{Species and Site scores} - the relative weight each species
+  and/or site has within each axes.
+\end{itemize}
+
+The lines I find most useful to focus on are the Proportion explained,
+and Cumulative proportion. PCA tries to ``squash'' all the original data
+from 24 dimensions (we have 24 columns or species) into 2 dimensions.
+Why? You cannot plot a 24 dimensional graph (or if you know how to do
+so, please apply for a Nobel Prize!). But you can plot a 2 dimensional
+graph. So if you can squash as much of the `information' in your
+original table of data into 2 new variables that summarise your species
+that makes life easier.
+
+\hypertarget{visualise-your-pca-results}{%
+\subsection{1.2 Visualise your PCA
+results}\label{visualise-your-pca-results}}
+
+In general we are only interested in PC1 and PC2. Very rarely, there
+might be useful information in PC3 so you may want to check it, although
+in my experience it is usually of little value. Generally, the first two
+axes tend to explain the majority of the variation, so these are usually
+plotted. We will use the \texttt{ordi\_plot()} function from the
+\texttt{bio2020} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# both sites and species}
+\FunctionTok{ordi\_plot}\NormalTok{(varespec\_pca, }\AttributeTok{geom =} \StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# just sites; note how you control x and y axis limits}
+\FunctionTok{ordi\_plot}\NormalTok{(varespec\_pca, }\AttributeTok{layers=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"text"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gf\_labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"PC1 and PC2 of varespec data showing sites"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gf\_lims}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{2.5}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)) }\CommentTok{\# optional}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-8-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# just species}
+\FunctionTok{ordi\_plot}\NormalTok{(varespec\_pca, }\AttributeTok{layers=}\StringTok{"species"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"text"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gf\_labs}\NormalTok{(}\AttributeTok{title=}\StringTok{"PC1 and PC2 of varespec data showing species codes"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gf\_lims}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.7}\NormalTok{, }\FloatTok{0.8}\NormalTok{), }\AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.45}\NormalTok{, }\FloatTok{0.7}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-8-3.pdf}
+
+When this dataset was analysed
+\href{https://naturalandenvironmentalscience.shinyapps.io/Unconstrained/\#section-ca-and-nmds}{initial
+on the interactive website with PCA} it suffered from a severe `arch
+effect'. You will notice we do not have an arch effect now, even though
+we are still using PCA. This is because we used \texttt{decostand()} to
+standardise our data, and reduce the effects of outliers. Overall PC1
+and PC2 explain less variation than before but the arch effect has been
+removed so the graph is easier to understand.
+
+Species that are close together tend to co-occur at particular sites,
+and sites that are close together have similar species composition.
+Species that are close to the zero-zero lines are more common across all
+sites. You will notice that due to clustering it is difficult to make
+some species/sites, so you can use \textbf{ordi\_identify()} to pick out
+the interesting ones.
+
+After you enter the \texttt{ordi\_identify()} command you will see the
+text
+
+\texttt{"Click\ on\ plot\ to\ label\ points;\ hit\ Esc\ key\ to\ exit"}
+
+displayed in the Console:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create the species plot, but only use points, not text labels}
+\CommentTok{\# store the species plot in varespec\_plt}
+\NormalTok{varespec\_plt }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_plot}\NormalTok{(varespec\_pca, }\AttributeTok{layers=}\StringTok{"species"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"point"}\NormalTok{)}
+
+\CommentTok{\# Displays the species plot onscreen}
+\NormalTok{varespec\_plt}
+
+\CommentTok{\# Use mouse to identify individual species. Hit Esc to exit}
+\FunctionTok{ordi\_identify}\NormalTok{(varespec\_plt)}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{ordi\_identify()} function is still under development so may
+not detect every point. In the Console, type \texttt{?ordi\_identify} to
+see more examples
+
+\hypertarget{relate-pca-to-explanatory-variables}{%
+\subsection{1.3 Relate PCA to explanatory
+variables}\label{relate-pca-to-explanatory-variables}}
+
+In unconstrained methods you undertake the ordination analysis first,
+and then relate your results back to any explanatory variables later.
+First, you need to obtain the sample PC scores used in your earlier
+plot. These are \texttt{choices\ =\ 1} for PC1 (x-axis in PC1 v PC2
+plot) or \texttt{choices\ =\ 2} for PC2.
+
+After having obtained these scores, you can see if there is any
+relationship with the explanatory data (in this case soil chemistry), to
+help you understand what external factors might be affecting the
+results. Your explanatory data in genetic experiments might be different
+stressors, resistant or susceptable strains etc.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Extract the PC1 site scores}
+\NormalTok{varespec\_pc1 }\OtherTok{\textless{}{-}} \FunctionTok{scores}\NormalTok{(varespec\_pca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Create plot (point plot because pH is continuous data)}
+\CommentTok{\# We put soil Ph on the horizontal x{-}axis as we assume it determines the}
+\CommentTok{\# plant species composition}
+\FunctionTok{gf\_point}\NormalTok{(varespec\_pc1 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pH, }\AttributeTok{data=}\NormalTok{varechem) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+Think about how the PC1 scores relate to the environment, and try the
+same with PC2, or with some of the other soil chemistry variables.
+
+\hypertarget{correspondence-analysis}{%
+\section{2. Correspondence Analysis}\label{correspondence-analysis}}
+
+\hypertarget{ca-analysis-and-summary-of-results}{%
+\subsection{2.1 CA analysis and summary of
+results}\label{ca-analysis-and-summary-of-results}}
+
+The wrapper function \textbf{ordi\_ca()} in the package \textbf{bio2020}
+will be used in this practical. A typical PCA in R has this format:
+\textbf{ordi\_ca(data)}
+
+Correspondence analysis is a weighted form of PCA that can fit
+non-linear responses. The weighting means the analysis is on the
+relative composition instead of absolute values. It is similar to PCA in
+that species that are close together tend to co-occur, and sites that
+are close together tend to have similar species composition.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dune\_ca }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_ca}\NormalTok{(dune)}
+\NormalTok{dune\_ca}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: cca(X = spp_data)
+## 
+##               Inertia Rank
+## Total           2.115     
+## Unconstrained   2.115   19
+## Inertia is scaled Chi-square 
+## 
+## Eigenvalues for unconstrained axes:
+##    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
+## 0.5360 0.4001 0.2598 0.1760 0.1448 0.1079 0.0925 0.0809 
+## (Showing 8 of 19 unconstrained eigenvalues)
+\end{verbatim}
+
+Output explained (similar to PCA):
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Call} - This is a reminder of how you fitted the CA.
+\item
+  \textbf{Inertia} - Total inertia is a measure of total variance.
+\item
+  \textbf{Unconstrained} - How many correlations have been explained by
+  the ordination axes. In this case, there is one less than the number
+  of variables.
+\item
+  \textbf{Eigenvalues} - Measure of the amount of variance that is
+  explained by each of the axes
+\end{itemize}
+
+To see the full output, use \textbf{summary()}. Again, this is a large
+output so it is not shown here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(dune\_ca)}
+\end{Highlighting}
+\end{Shaded}
+
+Output explained (similar to PCA):
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{CA1} - The first axes, and will explain the largest amount of
+  variation of all the axes.
+\item
+  The top 6 lines are the same as the CA output
+\item
+  \textbf{Eigenvalues} are the amount of inertia (variance) explained by
+  each axis. If added up for all 23 axes, it will be the same as the
+  total inertia.
+\item
+  \textbf{Proportion explained} is the amount of total variance
+  explained, and if added up for all 23 axes will equal 1.00.
+\item
+  \textbf{Cumulative proportion} is the cumulative total of the
+  proportion of each axes. While \textbf{CA1} explains 0.2534 and
+  \textbf{CA2} explains 0.1892 of the variance, their \emph{cumulative}
+  proportion is 0.4426 because it is the total amount of variance they
+  explain together.
+\item
+  \textbf{Species and Site scores} - the relative weight each species
+  and/or site has within each axes.
+\end{itemize}
+
+You can see that whilst PCA and CA differ in their underlying philosophy
+(linear vs unimodel) the summary of the results of the analyses is
+similar in interpretation.
+
+\hypertarget{visualise-your-ca-results}{%
+\subsection{2.2 Visualise your CA
+results}\label{visualise-your-ca-results}}
+
+Visualisation is very similar to that for PCA, and is most easily
+accessed via \texttt{ordi\_plot()} which is compatible with the plotting
+system you have already used.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# All the rows (sites or samples)}
+\FunctionTok{ordi\_plot}\NormalTok{(dune\_ca, }\AttributeTok{layers =} \StringTok{"sites"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"text"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gf\_lims}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{), }\AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{9}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 6 rows containing missing values (`geom_text()`).
+\end{verbatim}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# All the columns (species or attributes)}
+\FunctionTok{ordi\_plot}\NormalTok{(dune\_ca, }\AttributeTok{layers =} \StringTok{"species"}\NormalTok{, }\AttributeTok{geom =} \StringTok{"text"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{gf\_lims}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{), }\AttributeTok{y=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 9 rows containing missing values (`geom_text()`).
+\end{verbatim}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-13-2.pdf}
+
+Again, the species or attribute plot can get very cluttered depending on
+your dataset, so you might find it easier to label individual points
+using \texttt{ordi\_identify()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create the species plot, but only use points, not text labels}
+\CommentTok{\# store the species plot in dune\_plt}
+\NormalTok{dune\_plt }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_plot}\NormalTok{(dune\_ca, }\AttributeTok{layers=}\StringTok{"species"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"point"}\NormalTok{)}
+
+\CommentTok{\# Displays the species plot onscreen}
+\NormalTok{dune\_plt}
+
+\CommentTok{\# Use mouse to identify individual species. Hit Esc to exit}
+\FunctionTok{ordi\_identify}\NormalTok{(dune\_plt)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-14-2.pdf}
+
+If you have time, try plotting axes 1 and 3, CA1 vs CA3, using
+\texttt{axes\ =\ c(1,3)} as an option to \texttt{ordi\_plot()}.
+
+\hypertarget{non-metric-multidimensional-scaling}{%
+\section{3. Non-metric Multidimensional
+Scaling}\label{non-metric-multidimensional-scaling}}
+
+\hypertarget{nmds-background-and-analysis}{%
+\subsection{3.1 NMDS background and
+analysis}\label{nmds-background-and-analysis}}
+
+NMDS creates the ordination using the rank order of your sites along
+each axis, rather than absolute multi-dimensional distances. NMDS only
+makes sure that the points further apart are still further apart in NMDS
+space than the ``closer together'' points, so it does not preserve the
+actual distance. It determines these rankings from pairwise similarity
+scores between each pair of samples in turn, and analysing the resultant
+table. The \textbf{ordi\_nmds()} function by default uses the
+Bray-Curtis similarity measure which is robust for most data. The
+algorithm has to run multiple times to find the best solution. If
+needed, it will automatically standardise your data by either
+square-root and/or `Wisconsin' standardisation, which standardises
+species to equal maxima and sites to equal totals. You may see this
+displayed in the output as the model runs.
+
+The wrapper function \textbf{ordi\_nmds()} in the package
+\textbf{bio2020} will be used in this practical. A typical PCA in R has
+this format: \textbf{ordi\_nmds(data)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dune\_nmds }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_nmds}\NormalTok{(dune)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Run 0 stress 0.1192678 
+## Run 1 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 0.02027111  max resid 0.0649656 
+## Run 2 stress 0.1939202 
+## Run 3 stress 0.2496649 
+## Run 4 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 1.306338e-05  max resid 4.160223e-05 
+## ... Similar to previous best
+## Run 5 stress 0.1192678 
+## Run 6 stress 0.2253072 
+## Run 7 stress 0.1192678 
+## Run 8 stress 0.1192678 
+## Run 9 stress 0.1192678 
+## Run 10 stress 0.1183186 
+## ... New best solution
+## ... Procrustes: rmse 2.952944e-06  max resid 9.465589e-06 
+## ... Similar to previous best
+## Run 11 stress 0.1886532 
+## Run 12 stress 0.1183186 
+## ... Procrustes: rmse 2.138015e-06  max resid 4.929026e-06 
+## ... Similar to previous best
+## Run 13 stress 0.1183186 
+## ... Procrustes: rmse 4.554984e-06  max resid 1.54301e-05 
+## ... Similar to previous best
+## Run 14 stress 0.1183186 
+## ... Procrustes: rmse 6.698982e-06  max resid 1.941852e-05 
+## ... Similar to previous best
+## Run 15 stress 0.1812933 
+## Run 16 stress 0.1192679 
+## Run 17 stress 0.1192679 
+## Run 18 stress 0.1809577 
+## Run 19 stress 0.1183186 
+## ... Procrustes: rmse 2.756427e-06  max resid 9.340307e-06 
+## ... Similar to previous best
+## Run 20 stress 0.1808911 
+## *** Best solution repeated 5 times
+\end{verbatim}
+
+Output explained:
+
+NMDS uses many random starts (20 each time) and looks for the fits with
+the lowest stress. It will only conclude that a solution has been
+reached when the solutions with the lowest stress are similar. It also
+fits the NMDS for 1,2,3\ldots etc dimensions, and stops after a sudden
+drop in stress is observed. Sometimes the NMDS cannot find a solution on
+the first try like it has here (you will get back \textbf{no convergent
+solutions}), which is why we've saved the output as the object
+\textbf{dune\_nmds}. To run the NMDS on the same data again:
+
+dune\_nmds\_2 \textless- ordi\_nmds(dune, previous.best = dune\_nmds)
+
+The \textbf{previous.best} argument passes in a previous fit of NMDS and
+will run another 20 random starts (making the total number of random
+starts 40). However, you do not need to run this on the dune dataset as
+we have already found a convergent solution.
+
+Check the output of the nmds:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check the output}
+\FunctionTok{print}\NormalTok{(dune\_nmds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## metaMDS(comm = spp_data) 
+## 
+## global Multidimensional Scaling using monoMDS
+## 
+## Data:     spp_data 
+## Distance: bray 
+## 
+## Dimensions: 2 
+## Stress:     0.1183186 
+## Stress type 1, weak ties
+## Best solution was repeated 5 times in 20 tries
+## The best solution was from try 10 (random start)
+## Scaling: centring, PC rotation, halfchange scaling 
+## Species: expanded scores based on 'spp_data'
+\end{verbatim}
+
+Output explained:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Call} - This is a reminder of how you fitted the NMDS.
+\item
+  \textbf{Data} - This is the type of data used, species in this case.
+\item
+  \textbf{Distance} - the dissimilarity metric, in this case the default
+  is \emph{Bray-Curtis}.
+\item
+  \textbf{Dimensions} - the number of dimensions with the least stress.
+\item
+  \textbf{Two convergent solutions found after 20 tries} - the NMDS did
+  20 random starts and found 2 solutions that were very similar to one
+  another. If you ran the NMDS twice, it would say \textbf{\ldots after
+  40 tries} here.
+\end{itemize}
+
+\hypertarget{visualise-your-nmds-results}{%
+\subsection{3.2 Visualise your NMDS
+results}\label{visualise-your-nmds-results}}
+
+Again you can use the \texttt{ordi\_plot()} function to visualise the
+results. I usually find it easier to plot the samples and species
+separately, and compare the two graphs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot the NMDS sample (site) and attribute (species) scores}
+\FunctionTok{ordi\_plot}\NormalTok{(dune\_nmds, }\AttributeTok{layers=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ordi\_plot}\NormalTok{(dune\_nmds, }\AttributeTok{layers=}\StringTok{"species"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-17-2.pdf}
+
+If you wish to compare two graphs side-by-side, use the
+\texttt{multi\_plot()} function from the \texttt{bio2020} package (type
+\texttt{?multi\_plot} in the Console for help):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot the NMDS sample (site) and attribute (species) scores but this}
+\CommentTok{\# time store the plots}
+\NormalTok{dune\_nmds\_sites\_plt }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_plot}\NormalTok{(dune\_nmds, }\AttributeTok{layers=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"text"}\NormalTok{)}
+\NormalTok{dune\_nmds\_spp\_plt   }\OtherTok{\textless{}{-}} \FunctionTok{ordi\_plot}\NormalTok{(dune\_nmds, }\AttributeTok{layers=}\StringTok{"species"}\NormalTok{, }\AttributeTok{geom=}\StringTok{"text"}\NormalTok{)}
+
+\CommentTok{\# Use multi\_plot to display side by side}
+\FunctionTok{multi\_plot}\NormalTok{(dune\_nmds\_sites\_plt, dune\_nmds\_spp\_plt, }\AttributeTok{cols=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{practical_5_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+Comparing between plots makes it easier to understand relationships. For
+example from these plots I can see that the species Elymrepe and
+Cirsarve are probably most common at site 1. Species Airaprae, Empenigr
+and Hyporadi are probably commonly found together. They are particularly
+characteristic of sites 17 and 19 which also have high NMDS2 scores.
+
+\hypertarget{summary}{%
+\section{Summary}\label{summary}}
+
+Unconstrained methods provide useful ways of summarising tables of data
+from many different biological disciplines. They are worth considering
+if you have roughly 10 or more columns of data. This is particularly
+common in genomics and ecological studies, where multiple genes or
+species may be recorded for each sample or site. Doing lots of separate
+analyses on each column individually would be too time-consuming. These
+ordination methods also help you to identify \textbf{relationships}
+between variables, so that you can determine which samples (or sites)
+and which genes (or species) are most similar to each other.
+
+\end{document}
