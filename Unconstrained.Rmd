@@ -14,6 +14,8 @@ dune <- read.csv("www/dune.csv", row.names=1)
 data(dune.env)
 data(varespec)
 dune_pca <- rda(dune)
+varespec_ca <- cca(varespec)
+dune_nmds <- metaMDS(dune)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -224,7 +226,7 @@ so usually you only look at PC1 and PC2.
 ### Visualising the results
 PC1 and PC2 are created for both the attributes and samples, and the easiest way
 to study them is via two graphs, that should be interpreted together. You can
-display the results using the default `plot()` command. When you have a lot data these can difficult to interpret.
+display the results using the default `plot()` command. When you have a lot of data these can difficult to interpret.
 
 The plot displays the species scores and site scores. Remember that depending on your experimental data, the species scores might be what you have measured so metal concentrations in a tissue sample or gene sequences while the sites scores will correspond to the individual you have sampled from.
 
@@ -269,7 +271,7 @@ In PCA plots you will often get a mass of overlapping species in the centre of
 the plot, along the zero-zero lines: these tend to be fairly widespread and
 ubiquitous species, not characteristic of any particular sites.
 
-If we wanted to look more closely at the those species in the centre of the plot, we can look at the species scores more closely. Run the code below and look down PC1 and PC2 columns to see if you can find Trifrepe (_Trifolium_ _repens_). What are the PC1 and PC2 scores?
+If we wanted to look at the those species in the centre of the plot, we can look at the species scores more closely. Run the code below and look down PC1 and PC2 columns to see if you can find Trifrepe (_Trifolium_ _repens_). What are the PC1 and PC2 scores?
 
 ```{r sum_pca, exercise = TRUE}
 summary(dune_pca)[["species"]]
@@ -413,7 +415,7 @@ plot(varespec_pca, display = "species")
 
 You can see that the amount of variation explained by PC1 and PC2 is high, at
 53.8% and 25.4%, so together they explain almost 80% of the variation. This very
-high explained variation on just a couple of axes is sometimes the cause of an
+high explained variation on just a couple of axes is sometimes caused by an
 **arch effect**, which you can clearly see in the resultant ordination plot. Notice 
 too that in the species plot, nearly all of them are squashed together at the
 centre, with just 4 outlier species.
@@ -421,7 +423,7 @@ centre, with just 4 outlier species.
 In this situation, we would need to think about other ordination methods.
 
 ## Correspondence analysis (CA)
-Correspondence analysis was the second of the three unconstrained ordination methods we introduced at the start. CA is a weighted form of PCA that can fit non-linear responses. We saw earlier that CA is used when our attributes rise and fall along a gradient to create a unimodal relationship. If our attributes are abundance measurements for each species, then the rise and fall of species along a gradient represents **beta-diversity**. Beta-diversity represent the change in species contribution between sites or along an environmental gradient.
+Correspondence analysis was the second of the three unconstrained ordination methods we introduced at the start. CA is a weighted form of PCA that can fit non-linear responses. We saw earlier that CA is used when our attributes rise and fall along a gradient to create a unimodal relationship. If our attributes are abundance or composition measurements for each species, then the rise and fall of species along a gradient represents **beta-diversity**. Beta-diversity represent the change in species contribution between sites or along an environmental gradient.
 
 Let's repeat the analysis using correspondence analysis (CA), which assumes a **unimodal**
 relationship of the attributes (here these are species) and the derived ordination
@@ -436,6 +438,9 @@ varespec_ca <- cca(varespec)
 # Check variation explained; if using RStudio just enter summary(varespec_pca)
 summary(varespec_ca)[["cont"]][["importance"]]
 
+# plot CA1 and CA2 for samples and species
+plot(varespec_ca)
+
 # Plot CA1 and CA2 of the samples
 plot(varespec_ca, display="sites") 
 
@@ -449,53 +454,44 @@ lines labelled `Proportion Explained` and `Cumulative Proportion`). However, the
 graphs for both the sites and species are much easier to understand, and the arch
 effect has been removed.
 
-```{r ca2, exercise=TRUE}
-
-# Create the CA
-varespec_ca <- cca(varespec)
-
-# Check variation explained; if using RStudio just enter summary(varespec_pca)
-summary(varespec_ca)[["sites"]]
-
-# we will add the row names as a column to look more closely at a couple of sites
-varespec$site_num <- row.names(varespec)
-
-```
-
 With these data, CA would appear to be much better at analysing our data but we mentioned beta-diversity earlier. What additional ecological interpretation can we get from looking at the plot?
 
-If we look at the site scores then we can see that along CA1 (x-axis) there is a big difference between the community composition at site 10 and 28. We would expect to see that the contribution for each of the species counted would be different between these two sites which represents a change in species contribution between those sites. This change in the contribution of each species to the community represents beta-diversity.
+If we look at the **site scores** then we can see that along CA1 (x-axis) there is a big difference between the community composition at site 10 and 28. We would expect to see that the contribution for each of the species examined would be different between these two sites. The change in species composition from site to site represents beta-diversity.
 
-This can be illustrated more clearly by looking at what was measured to for sites 10 and 28 by looking more closely at the data.frame. First, we will give `varespec` a new column so we can easily find the two sites. Then we will extract the two sites from the data.frame so that it is easier to see the contribution of each species.
+This can be illustrated more clearly by looking at what was measured for sites 10, 19 and 28 and looking more closely at these data. First, we will give `varespec` a new column so we can easily find the three sites. Then we will extract the three sites from the `data.frame` along with some key species so that it is easier to see how the contribution of each species changes from site to site.
 
 ```{r ca3, exercise=TRUE}
 
-# Create the CA
-varespec_ca <- cca(varespec)
-
-# Check variation explained; if using RStudio just enter summary(varespec_pca)
-summary(varespec_ca)[["sites"]]
-
 # we will add the row names as a column to look more closely at a couple of sites
 varespec$site_num <- row.names(varespec)
 
-varespec %>% filter(site_num == "10"| site_num == "19" | site_num =="28") -> varespec2
+# select sites 10, 19, and 28 and then four species of interest
+varspec2 <- varespec %>% filter(site_num == "10"| site_num == "19" | site_num =="28") %>%  select(Cladstel, Pleuschr, Vaccmyrt, Empenigr)
+
+# look at the species composition for the three sites
+varspec2
 
 ```
 
-You can look across these lines to see which species have different contributions.....
+If we order the different sites from highest to lowest for each species, we can see a clear pattern:
 
-### Non-metric multidimensional scaling (NMDS)
-Recall that NMDS uses a somewhat different approach to creating the ordination,
-as it is concerned with the relative rankings of your sites along each axis, rather
-than absolute multi-dimensional distances. It determines these rankings from
-pairwise similarity scores between each pair of samples in turn, and analysing
-the resultant table (which is triangular, rather like the distances between cities
-tables you sometimes find in road atlases). The `ord_nmds()` function by default
-uses the **Bray-Curtis** similarity measure which is robust for most data. The
-algorithm has to run multiple times to find the best solution. If needed, it
-will automatically standardise your data by either square-root and/or 'Wisconsin'
-standardisation. You may see this displayed in the output as the model runs.
+* Cladstel: 10 > 19 > 28
+* Pleuschr: 28 > 19 > 10
+* Vaccmyrt: 28 > 19 > 10
+* Empenigr: 10 > 19 > 28
+
+Site 19 is always in the middle and sites 10 and 28 are always either side of 19. If you look at your figure with the sites scores you can see where the three sites are plotted in relation to each other. The CA has reduced the dimensionality of our data from lots of *attributes* (in this case species coverage) into CA1, CA2 etc... which is now easier to see patterns in our data. The pattern of interest here being related to which sites have differing species composition. We now need to think about why there are changes in species composition. If we had environmental data then we could see whether that environmental data are related to CA1 or CA2 scores as we have done for the PCA analysis.
+
+```{r rm_varespec, include = FALSE}
+rm(varespec)
+rm(varespec2)
+```
+
+
+## Non-metric multidimensional scaling (NMDS)
+Recall that non-metric multidimensional scaling (NMDS) uses a somewhat different approach to creating the ordination, as it is concerned with the relative rankings of your sites along each axis, rather than absolute multi-dimensional distances. It determines these rankings from pairwise similarity scores between each pair of samples in turn, and analysing the resultant matrix (which is triangular, rather like the distances between cities tables you sometimes find in road atlases).
+
+`Vegan` uses the `metaMDS()` function to undertake NMDS based on a distance matrix. It calculates the **Bray-Curtis** similarity which is robust for most data. The algorithm has to run multiple times to find the best solution. If needed, it will automatically standardise your data by either square-root and/or 'Wisconsin' standardisation. You may see this displayed in the output as the model runs.
 
 **Note**
 
@@ -504,21 +500,49 @@ standardisation. You may see this displayed in the output as the model runs.
 provides an overall "stress" level, where the lower the stress, the better.
 
 ```{r metaNMDS, exercise=TRUE}
+
 # Create the NMDS
-varespec_nmds <- ordi_nmds(varespec)
+dune_nmds <- metaMDS(dune)
 
 # Check the output
-print(varespec_nmds)
+print(dune_nmds)
 
 # Plot the NMDS sample (site) and attribute (species) scores
-ordi_plot(varespec_nmds, layers="sites", geom="text")
-ordi_plot(varespec_nmds, layers="species", geom="text")
+plot(dune_nmds)
+
+# plot the site scores
+plot(dune_nmds, display = "sites")
+
+# plot the species scores
+plot(dune_nmds, display = "species")
 ```
 
+The stress value is a measure of the goodness of fit. It is important because it gives an indication of how hard the algorithm is working to fit these data into 2-dimensional space whilst maximising the dissimilarities between samples. Stress values greater than >0.3 indicate that the positions in the plot are no better than arbitrary while anything <0.2 is worth looking at further. A good rule of thumb for understanding how much you can interpret from your NMDS based on stress is:
+
+* stress less than 0.05 indicates an excellent configuration
+* stress between 0.05 and 0.1 indicates a good configuration
+* stress between 0.1 and 0.2 requires careful interpretation
+* stress between 0.2 and 0.3 interpretation becomes difficult
+* stress greater than 0.3 indicates there is unlikely to be groupings and the configuration plotted is arbitrary.
+
+The NMDS plots with both the `sites` and `species` scores together is difficult to interpret because we don't know which species is which or which site is which. We can edit this plot so that we plot text rather than symbols which might help our interpretation.
+
+```{r metaNMDS2, exercise = TRUE}
+# plot empty space first
+plot(dune_nmds, type = "n")
+
+# add text for the sites
+text(dune_nmds, display = "sites", cex = 0.7, col = "blue")
+
+# add text for the species
+text(dune_nmds, display = "species", cex = 0.7, col = "red")
+
+```
+
+How do we interpret the final plot? Well sites close together will have similar community composition, in terms of species present and their abundances. So sites 14, 15 and 20 will have similar community structure and will be different to 5, 6 and 10.
+
 NMDS is considered to be the most robust unconstrained ordination method for
-many biologists. See the paper by Minchin (1987) <a href="www/Minchin.pdf" target="_blank">here</a>  The `ordi_nmds()` function in the `bio2020` package is
- a simple wrapper for `vegan` package's `metaNMDS()` function. It combines
-all of Minchin's recommendations into a single command.
+many biologists. See the paper by Minchin (1987) <a href="www/Minchin.pdf" target="_blank">here</a>
 
 ## Summary
 
