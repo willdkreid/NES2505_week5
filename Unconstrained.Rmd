@@ -8,7 +8,6 @@ runtime: shiny_prerendered
 library(learnr)
 library(mosaic)
 library(vegan)
-library(bio2020)
 library(tibble)
 dune <- read.csv("www/dune.csv", row.names=1)
 data(dune.env)

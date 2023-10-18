@@ -1,6 +1,5 @@
 ---
 title: 'Practical 5: Unconstrained Ordination'
-subtitle: "BIO2020 Statistics and experimental design"
 output:
   pdf_document: 
   html_document: default
@@ -10,7 +9,10 @@ output:
 
 
 ```{r setup, include=FALSE}
-library(bio2020)
+library(learnr)
+library(mosaic)
+library(vegan)
+library(tibble)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -18,10 +20,10 @@ knitr::opts_chunk$set(echo = TRUE)
 # Introduction
 Until now, all the 'response' data you have looked at consists of a single column of data. Examples you have looked at include 'growth', 'presence or absence of bacterial colonies' etc. You can easily summarise data that consists of a single column of numbers using a mean, median, standard deviation. But what if your response variable consists of lots of columns of data? For example:
 
-* instead of a single column telling you the total number of specis found at 20 sites, you have a table of 20 rows, with 17 columns. Each cell entry in the table shows the abundance of a particular species (column) at that site (row)
+* instead of a single column telling you the total number of species found at 20 sites, you have a table of 20 rows, with 17 columns. Each cell entry in the table shows the abundance of a particular species (column) at that site (row)
 * instead of single column giving an indication of the number of bacteria colonies you have multiple columns, from qPCR sequencing, giving information about the genetic information (each column) for each bacterial colony (each row)
 
-Such tables of data are harder to understand using means and standard devations. Whilst you can still calculate these, you end up with lots of information to digest. For example, you can still calculate the average abundance of each of your 17 species at all your 20 sites. But this does not allow you to answer key questions, e.g.
+Such tables of data are harder to understand using means and standard deviations. Whilst you can still calculate these, you end up with lots of information to digest. For example, you can still calculate the mean abundance of each of your 17 species at all your 20 sites. But this does not allow you to answer key questions, e.g.
 
 * which sites are most similar in their species composition?
 * which species regularly co-occur with each other?
@@ -40,20 +42,13 @@ The main aims of this practical are to learn more on the use, interpretation and
 2. Correspondence analysis (CA), a "unimodal" method
 3. Non-metric multidimensional scaling (NMDS), a "rank-based" method
 
-You are strongly recommended to study [this interactive website](https://naturalandenvironmentalscience.shinyapps.io/Unconstrained/) before beginning the practical. We will use the same data as on the website, but we have swapped them round in the analyses, to keep you thinking!
+Please complete [this interactive website](https://naturalandenvironmentalscience.shinyapps.io/NES2505Unconstrained/) before beginning the practical.
 
 ## Setting up for the practical  
-First, go to Canvas and download the **dune.csv** data set and save it to your `Data` folder within your BIO2020 project folder. Now navigate to your BIO2020 folder and open up your existing project for this course in RStudio, as you have done in previous practicals. On the main RStudio menu, click on **File -> New File -> R script** and save it to your current working directory (the location of your Bio2020 project) as **Practical_5.R** 
+First, go to Canvas and download the **dune.csv** data set and save it to your `Data` folder within your NES2505 project folder. Now navigate to your NES2505 folder and open up your existing project for this course in RStudio, as you have done in previous practicals. On the main RStudio menu, click on **File -> New File -> R script** and save it to your current working directory (the location of your Bio2020 project) as **Practical_5.R** 
 
 ## Installing and Loading Packages
-Practicals 5 and 6 make use of both the `vegan` and `bio2020` R packages. Hopefully you have already installed these. The `vegan` package was originally written for vegetation analysis, but is now used in microbiology, phylogenetics, animal ecology etc. There is plenty of online material about the package, but if using Google to search for it, please search for 'R vegan multivariate' rather than just 'vegan' otherwise Google will return food recipes!
-
-If you have not already done so, please install the `bio2020` package; this provides easier access to analytical functions, and better graphics, than the standard `vegan` functions. Remember that you have to set your R session to look in the correct folder (e.g. Downloads) to install the packages. There is extensive information on how to install the package, including troubleshooting for Safari on MacBooks, at Canvas [on this page](https://ncl.instructure.com/courses/23926/pages/3-install-additional-r-packages) . The `bio2020` package automatically activates the `vegan` package.
-
-Load the **bio2020** package as you have done in previous sessions.    
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-library(bio2020)
-```
+Practicals 5 and 6 make use of the `vegan` R packages. The `vegan` package was originally written for vegetation analysis, but is now used in microbiology, phylogenetics, animal ecology etc. There is plenty of online material about the package, but if using Google to search for it, please search for 'R vegan multivariate' rather than just 'vegan' otherwise Google will return food recipes!
 
 ## Example datasets for analysis  
 Import the `dune.csv` file you downloaded at the very beginning of the practical into R using the `read.csv()` function. This practical assumes you have save your file in the `Data` subfolder:
@@ -107,13 +102,15 @@ View(varespec)
 
 # 1. Principal Components Analysis
 ## 1.1 PCA analysis and summary of results
-For the purpose of clarity the wrapper function **ordi_pca()** in the package **bio2020** will be used in this practical. A typical PCA in R has this format: **ordi_pca(data)**
 
-In the [online tutorial](https://naturalandenvironmentalscience.shinyapps.io/Unconstrained/) you saw how the arch or horseshoe effect can be a problem with ecological or gene sequencing data. Although **unimodal methods** are a good alternative, you can implement transformations using the **decostand()** function. Here, we use **scale = TRUE** to give the data **unit variance**, and the **hellinger** transformation, which works well with environmental and species data.
+In the [interactive webpage](https://naturalandenvironmentalscience.shinyapps.io/NES2505Unconstrained/#section-principal-components-analysis), we went through doing a PCA using data from a sand dune system. The aim was to try to understand how sites differ based on their species composition. PCA is often used as an exploratory analysis because it can reduce large amounts of data into a plot that can be more early interpreted than looking at large amounts of species data.
+
+We are going to use the dune data set again to undertake your analysis. We use the `rda()` function to do the PCA.
 
 ```{r}
-varespec_pca <- ordi_pca(decostand(varespec, method = "hellinger"), scale = TRUE)
-varespec_pca
+# Undertake the PCA ordination
+varechem_pca <- rda(varechem)
+varechem_pca
 
 ```
 
@@ -125,10 +122,10 @@ Output explained:
 - **Eigenvalues** - Measure of the amount of variance that is explained by each of the axes
 - **PC1** - The first axes, and will explain the largest amount of variation of all the axes.
 
-To see all 23 axes, use **summary()**. This is a large output so it is not included here.
+To see all 19 axes, use **summary()**. This is a large output so it is not included here.
 
 ```{r echo=TRUE, include=TRUE, results = 'hide'}
-summary(varespec_pca)
+summary(dune_pca)
 ```
 
 This produces a lot of output, but don't worry, it is less fearsome than it looks!
@@ -136,8 +133,8 @@ This produces a lot of output, but don't worry, it is less fearsome than it look
 Output explained:
 
 - The top 6 lines are the same as the PCA output
-- **Eigenvalues** are the amount of inertia (variance) explained by each axis. If added up for all 23 axes, it will be the same as the total inertia.
-- **Proportion explained** is the amount of total variance explained, and if added up for all 23 axes will equal 1.00. You can see that the proportion explained is highest for PC1, next highest for PC2 and so on. The last PC, PC23, explains virtually nothing.
+- **Eigenvalues** are the amount of inertia (variance) explained by each axis. If added up for all 19 axes, it will be the same as the total inertia.
+- **Proportion explained** is the amount of total variance explained, and if added up for all 19 axes will equal 1.00. You can see that the proportion explained is highest for PC1, next highest for PC2 and so on. The last PC, PC23, explains virtually nothing.
 - **Cumulative proportion** is the cumulative total of the proportion of each axes. While **PC1** explains 0.5384 and **PC2** explains 0.2543 of the variance, their *cumulative* proportion is 0.7927 because it is the total amount of variance they explain together.
 - **Species and Site scores** - the relative weight each species and/or site has within each axes.
 
