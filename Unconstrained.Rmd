@@ -270,13 +270,13 @@ In PCA plots you will often get a mass of overlapping species in the centre of
 the plot, along the zero-zero lines: these tend to be fairly widespread and
 ubiquitous species, not characteristic of any particular sites.
 
-If we wanted to look at the those species in the centre of the plot, we can look at the species scores more closely. Run the code below and look down PC1 and PC2 columns to see if you can find Trifrepe (_Trifolium_ _repens_). What are the PC1 and PC2 scores?
+If we wanted to look at the those species in the centre of the plot, we can look at the species scores more closely. We can extract the species scores using the `scores()` function and select PC1 and PC2 with the `choices = 1:2`. Run the code below and look down PC1 and PC2 columns to see if you can find Trifrepe (_Trifolium_ _repens_). What are the PC1 and PC2 scores? Are there any other species which are found closer to PC1 = 0 and PC2 = 0?
 
 ```{r sum_pca, exercise = TRUE}
-summary(dune_pca)[["species"]]
+scores(dune_pca, display="species", choices = 1:2)
 ```
 
-Looking down the columns for PC1 and PC2, you should see that Trifrepe (_Trifolium_ _repens_) has a PC1 = 0.581 and PC2 = 0.021. This species is hard to decipher from the cloud of text in the middle of the plot but given these values we would expect to find it most of the sites. If we look at the data in `dune` we find it at 16 out of the 20 sites. Sometimes it is worth looking directly at the species scores to help interpret your plot.
+Looking down the columns for PC1 and PC2, you should see that Trifrepe (_Trifolium_ _repens_) has a PC1 = 0.581 and PC2 = 0.021. This species is hard to decipher from the cloud of text in the middle of the plot but given these values we would expect to find it most of the sites. If we look at the data in `dune` we find it at 16 out of the 20 sites. Sometimes it is worth looking directly at the species scores to help interpret your plot. Are there any other species which are found closer to PC1 = 0 and PC2 = 0?
 
 ## Relate PCA to explanatory variables
 ### What do the PCA axes mean?
@@ -457,29 +457,35 @@ With these data, CA would appear to be much better at analysing our data but we 
 
 If we look at the **site scores** then we can see that along CA1 (x-axis) there is a big difference between the community composition at site 10 and 28. We would expect to see that the contribution for each of the species examined would be different between these two sites. The change in species composition from site to site represents beta-diversity.
 
-This can be illustrated more clearly by looking at what was measured for sites 10, 19 and 28 and looking more closely at these data. First, we will give `varespec` a new column so we can easily find the three sites. Then we will extract the three sites from the `data.frame` along with some key species so that it is easier to see how the contribution of each species changes from site to site.
+This can be illustrated more clearly by looking at the relationship between the species cover estimates (original data collected) and CA1 scores. We can do this is four steps: extract site scores; select 4 species of interest; create a dataframe with sites scores and species coverage estimates; and final plot those data.
 
 ```{r ca3, exercise=TRUE}
 
-# we will add the row names as a column to look more closely at a couple of sites
-varespec$site_num <- row.names(varespec)
+# Extract just the CA1 scores
+sco1 <- scores(varespec_ca, display = "sites", ch=1)
 
-# select sites 10, 19, and 28 and then four species of interest
-varspec2 <- varespec %>% filter(site_num == "10"| site_num == "19" | site_num =="28") %>%  select(Cladstel, Pleuschr, Vaccmyrt, Empenigr)
+# look at the top 6 rows of data
+head(sco1)
 
-# look at the species composition for the three sites
-varspec2
+# Select four species of interest and plot against CA1
+varspec2 <- varespec  %>%  select(Cladstel, Pleuschr, Vaccmyrt, Empenigr)
+
+# Merge CA1 scores and species abundance into one table and turn the row names into a column so we can plot the site numbers on the figure
+mydat <- cbind(sco1, varspec2)
+mydat$site_num <- row.names(mydat)
+head(mydat)
+
+# plot Vaccmyrt coverage against the CA1 score
+gf_point(Vaccmyrt ~ CA1, data=mydat) %>%
+  gf_text(Vaccmyrt ~ CA1, label = ~site_num, size = 2, nudge_x = 0.1, nudge_y = 0.1)
+
+# plot Cladstel coverage against the CA1 score
+gf_point(Cladstel ~ CA1, data=mydat) %>%
+  gf_text(Cladstel ~ CA1, label = ~site_num, size = 2, nudge_x = 0.1, nudge_y = 0.1)
 
 ```
 
-If we order the different sites from highest to lowest for each species, we can see a clear pattern:
-
-* Cladstel: 10 > 19 > 28
-* Pleuschr: 28 > 19 > 10
-* Vaccmyrt: 28 > 19 > 10
-* Empenigr: 10 > 19 > 28
-
-Site 19 is always in the middle and sites 10 and 28 are always either side of 19. If you look at your figure with the sites scores you can see where the three sites are plotted in relation to each other. The CA has reduced the dimensionality of our data from lots of *attributes* (in this case species coverage) into CA1, CA2 etc... which is now easier to see patterns in our data. The pattern of interest here being related to which sites have differing species composition. We now need to think about why there are changes in species composition. If we had environmental data then we could see whether that environmental data are related to CA1 or CA2 scores as we have done for the PCA analysis.
+We can see that for Cladstel there are high negative CA1 scores for sites 9 and 10 which decrease to approximately 0 at site 28. This shows us that Cladstel contribution to the community is decreasing along the CA1 axis. In comparison, the relationship between coverage of Vaccmyrt's and CA1 scores is the opposite where it goes from high positive CA1 scores at site 28 to approximately zero at sites 9 and 10. If you look at the figure which plots the species and site scores together, Vaccmyrt is found close to 28 and Cladsetl is found close to 9 and 10, meaning that they are important components of those of those sites.
 
 ```{r rm_varespec, include = FALSE}
 rm(varespec)
@@ -552,3 +558,5 @@ your raw data into one or two new variables.
 * Samples close together on these axes will tend to have similar attributes
 * It is up to you to try and understand what these axes represent by interpreting
 them in relation to environmental data or laboratory experimental treatments.
+
+There is a lot more that you can do with the `vegan` package when it comes to analysing community data. On the R website where the package is hosted, there is more information about the capabilities of `vegan` in the [vignettes section](https://cran.r-project.org/web/packages/vegan/index.html). It is worthwhile having a look at these if you are interested to learn more.
