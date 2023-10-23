@@ -198,8 +198,16 @@ data are extremely messy and difficult to interpret by PCA or CA.
 ## Principal components analysis
 Let's analyse the dune data using principal components analysis (PCA). The `vegan` package provides access to many advanced multivariate methods. It has the `rda()` function, which when used with only a response variable provides PCA, and if used with both response and explanatory variables it automatically uses constrained analysis. This can be a little confusing for beginners. Remember that in both constrained and unconstrained analyses the "response variable" is actually your `data.frame` containing lots of variables. The `summary()` function on your ordination output produces lots of information (most of which you do not need to study), so for this website we're going to limit amount of output. When you run it interactively in RStudio, you'll have to scroll up a bit to see the next few lines.
 
+```{r dune_pca2, echo = TRUE, eval = FALSE}
+# Undertake the PCA ordination
+dune_pca <- rda(dune)
 
-```{r dune_pca, echo=TRUE}
+# First part of summary: importance of derived variables
+summary(dune_pca)
+
+```
+
+```{r dune_pca, echo=FALSE, eval = TRUE}
 # Undertake the PCA ordination
 dune_pca <- rda(dune)
 
@@ -207,6 +215,7 @@ dune_pca <- rda(dune)
 summary(dune_pca)[["cont"]][["importance"]]
 
 ```
+
 
 Creating the PCA is very simple. In a PCA you try to "squash" as much of the
 variability in your data into new derived variables, known as **ordination axes**
@@ -435,7 +444,7 @@ of the `rda()` function.
 varespec_ca <- cca(varespec)
 
 # Check variation explained; if using RStudio just enter summary(varespec_pca)
-summary(varespec_ca)[["cont"]][["importance"]]
+summary(varespec_ca)
 
 # plot CA1 and CA2 for samples and species
 plot(varespec_ca)
